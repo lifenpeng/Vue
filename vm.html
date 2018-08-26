@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue实例</title>
+</head>
+<body>
+    <div id="vm">{{arr.name}}~~~{{main.main}}</div>
+    <script src="vue.js"></script>
+    <script>
+
+       let arr = {
+           name:'junjun'
+       }
+
+       let obj = {
+           main:'main'
+       }
+
+       //Object.freeze()，这会阻止修改现有的属性，也意味着响应系统无法再追踪变化。
+       Object.freeze(obj);
+
+       let vm = new Vue({
+           el:'#vm',
+           data:{
+               arr:arr,
+               main:obj
+           },
+           //比如 created 钩子可以用来在一个实例被创建之后执行代码
+           created: function () {
+                // `this` 指向 vm 实例
+                console.log('arr is: ' + this.arr.name);
+            }
+       })
+
+       console.log(arr.name==vm.arr.name);
+       vm.arr.name = 'xiaoxiao';
+       console.log(arr.name);
+
+       vm.main.main = 'junjun';
+       obj.main = 'junjun';
+
+       console.log(vm);
+       console.log(vm.$data);
+       console.log(vm.$el);
+
+       //事件监听
+       vm.$watch('arr.name',function(newValue, oldValue){
+             console.log(`new:${newValue}, old:${oldValue}`);
+       })
+
+       vm.arr.name = 'junjun';
+
+    </script>
+</body>
+</html>

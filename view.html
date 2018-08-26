@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue模板语法</title>
+</head>
+<style>
+   ul li{
+       list-style-type: none;
+       margin: 10px 0px;
+   }
+   h1 {
+       padding: 0px;
+       margin: 0px;
+   }
+</style>
+<body>
+    <ul id="app">
+        <!-- 通过使用 v-once 指令，你也能执行一次性地插值，当数据改变时，插值处的内容不会更新。 -->
+        <li>{{msg}}</li>
+        <li v-once>{{msg}}</li>
+        <!-- 双大括号会将数据解释为普通文本，而非 HTML 代码。为了输出真正的 HTML，你需要使用 v-html 指令： -->
+        <li>{{html}}</li>
+        <li v-html='html'></li>
+        <!-- Vue.js 为 v-bind 和 v-on 这两个最常用的指令，提供了特定简写： -->
+        <!-- Mustache 语法不能作用在 HTML 特性上，遇到这种情况应该使用 v-bind 指令： -->
+        <li><button v-bind:disabled="butonAb">button</button></li>
+        <li><img v-bind:src="src" :style="imgCss"></li>
+        <!-- v-on 指令，它用于监听 DOM 事件： -->
+        <li v-on:click="click">点击我</li>
+        <li @click="click">我也可以被点击</li>
+    </ul>
+    <script src="vue.js"></script>
+    <script>
+       let vm = new Vue({
+           el:'#app',
+           data:{
+               msg:'hello',
+               html:"<h1 style='color:red;'>hello</h1>",
+               butonAb:true,
+               src:"timg.jpeg",
+               imgCss:"width:300px;height:300px;"
+           },
+           methods:{
+               click:function(){
+                   alert('click');
+               }
+           }
+       })
+    </script>
+</body>
+</html>

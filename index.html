@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue</title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<style>
+  h1 {
+      text-align: center;
+  }
+  .form-group {
+      margin-top: 20px;
+  }
+
+  .row {
+      margin: 0px;
+  }
+</style>
+<body>
+    <div class="row" id="app">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <h1 v-bind:title='msg'>{{msg}}</h1>
+                <label class="sr-only" for="vue">vue</label>
+                <input type="text" class="form-control" id="vue" placeholder="vue" v-model="main" v-on:focus="onfocus">
+                <div class="panel panel-default" v-if="show">
+                    <div class="panel-body">
+                        <ol>
+                            <todo-item v-for="item in wow" v-bind:todo="item" v-bind::key="item.key"></todo-item>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+    
+    <script src="jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="vue.js"></script>
+    <script>
+       Vue.component('todo-item',{
+           props:['todo'],
+           template:'<li>{{todo.name}}</li>'  
+       })    
+       var app = new Vue({
+           el:'#app',
+           data:{
+               msg:'hello Vue!',
+               show:false,
+               wow:[{key:1,name:'java'},{key:2,name:'c语言'},{key:3,name:'javaScript'}],
+               main:''
+            },
+           methods:{
+               onfocus:function(){
+                  this.show = true;
+               }
+           }
+       })
+    </script>
+</body>
+</html>

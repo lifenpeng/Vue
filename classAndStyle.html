@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>class 与 style</title>
+</head>
+<style>
+  .main {
+      width: 100px;
+      height: 100px;
+      list-style-type: none;
+  }
+
+  .bd {
+      border: 1px solid pink;
+  }
+
+  .bg {
+      background: blue;
+  }
+</style>
+<body>
+    <!-- v-bind:class 指令也可以与普通的 class 属性共存 -->
+    <ul id="app">
+
+        <li class="main" v-bind:class = "{
+            'bd':isBd,
+            'bg':isBg
+        }"></li>
+
+        <li v-bind:class="clObj"></li>
+
+        <li v-bind:class="classObj"></li>
+
+        <li class="main" v-bind:style="{border:bds,background:bgs}"></li>
+
+        <li class="main" v-bind:style="styleObj"></li>
+    </ul>
+     <script src="vue.js"></script>
+     <script>
+        let vm= new Vue({
+           el:'#app',
+           data:{
+            isBd:true,
+            isBg:false,
+
+            clObj:{
+                main:true,
+                bd:true,
+                bg:false,                
+            },
+
+            styleObj:{
+                border:'1px solid blue',
+                background:'pink'
+            },
+
+            show:true,
+
+            bds:'1px solid blue',
+
+            bgs:'pink'
+
+           },
+           //可以在这里绑定一个返回对象的计算属性。这是一个常用且强大的模式
+           computed:{
+               classObj:function(){
+                  return {
+                    main:this.show&&true,
+                    bd:this.show&&true,
+                    bg:this.isBg
+                  }
+               }
+           }
+        })
+     </script>
+</body>
+</html>
